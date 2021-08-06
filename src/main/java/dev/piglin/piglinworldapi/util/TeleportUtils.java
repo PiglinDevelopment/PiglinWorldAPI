@@ -83,6 +83,7 @@ public class TeleportUtils implements Listener {
                                          @NotNull Consumer<TimedTeleportRecord<Object>> onCancel,
                                          @NotNull Function<TimedTeleportRecord<Object>, Boolean> onTeleport,
                                          @Nullable M meta) {
+
         /**
          * Always teleport player (for onTeleport)
          */
@@ -93,5 +94,11 @@ public class TeleportUtils implements Listener {
         public static final Consumer<TimedTeleportRecord<Object>> NOOP = o -> {
 
         };
+        public TimedTeleportRecord(@NotNull Player player, @NotNull Location destination,
+                                   @NotNull Consumer<TimedTeleportRecord<Object>> onCancel,
+                                   @NotNull Function<TimedTeleportRecord<Object>, Boolean> onTeleport,
+                                   @Nullable M meta) {
+            this(player, destination, System.currentTimeMillis() + 1000 * PiglinWorldAPI.getInstance().getTeleportDelay(), onCancel, onTeleport, meta);
+        }
     }
 }

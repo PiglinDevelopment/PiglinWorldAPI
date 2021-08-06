@@ -24,6 +24,7 @@ public final class PiglinWorldAPI extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        saveDefaultConfig();
         setupFileStorage();
         blockDataStorage = new BlockDataStorage(blockDataStorageFile);
         blockController = new BlockController();
@@ -78,6 +79,14 @@ public final class PiglinWorldAPI extends JavaPlugin {
      */
     public GuiController getGuiController() {
         return guiController;
+    }
+
+    /**
+     * Get the teleport delay in seconds
+     * @return the teleport delay in seconds
+     */
+    public long getTeleportDelay() {
+        return getConfig().getLong("teleport delay");
     }
 
     @Override
