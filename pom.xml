@@ -148,6 +148,10 @@
                         <configuration>
                             <keyname>0xBCCA0D80</keyname>
                             <passphraseServerId>0xBCCA0D80</passphraseServerId>
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
                         </configuration>
                     </plugin>
                     <plugin>
