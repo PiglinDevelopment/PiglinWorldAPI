@@ -148,6 +148,7 @@
                         <configuration>
                             <keyname>0xBCCA0D80</keyname>
                             <passphraseServerId>0xBCCA0D80</passphraseServerId>
+                            <executable>gpg2</executable>
                         </configuration>
                     </plugin>
                     <plugin>
