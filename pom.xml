@@ -9,7 +9,31 @@
     <version>0.1.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>PiglinWorldAPI</name>
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description>A set of APIs and utils for Spigot developers</description>
+    <url>https://piglin.dev/</url>
+
+    <developers>
+        <developer>
+            <name>Dmitry Chankov</name>
+            <email>err266228@gmail.com</email>
+            <organization>PiglinDevelopment</organization>
+            <organizationUrl>https://piglin.dev</organizationUrl>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>GPL-v3.0</name>
+            <url>http://www.gnu.org/licenses/gpl-3.0.txt</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git://github.com/PiglinDevelopment/PiglinWorldAPI.git</connection>
+        <developerConnection>scm:git:ssh://github.com:PiglinDevelopment/PiglinWorldAPI.git</developerConnection>
+        <url>http://github.com/PiglinDevelopment/PiglinWorldAPI/tree/master</url>
+    </scm>
 
     <properties>
         <java.version>16</java.version>
@@ -100,6 +124,35 @@
             </resource>
         </resources>
     </build>
+
+    <profiles>
+        <profile>
+            <id>ci-cd</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>3.0.1</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <keyname>0xBCCA0D80</keyname>
+                            <passphraseServerId>0xBCCA0D80</passphraseServerId>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
 
     <repositories>
         <repository>
