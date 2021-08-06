@@ -1,0 +1,31 @@
+name: PiglinWorldAPI
+version: ${project.version}
+main: dev.piglin.piglinworldapi.PiglinWorldAPI
+api-version: 1.17
+authors: [ Iaiao ]
+softdepend:
+  - PlaceholderAPI
+  - AntiRelog
+commands: 
+  checkblocktag:
+    description: Checks whether a block contains the target tag
+    usage: /<command> <tag>
+    permission: piglinworldapi.checkblocktag
+  addblocktag:
+    description: Adds a tag to the target block
+    usage: /<command> <tag>
+    permission: piglinworldapi.addblocktag
+  removeblocktag:
+    description: Removes a tag from the target block
+    usage: /<command> <tag>
+    permission: piglinworldapi.removeblocktag
+permissions:
+  piglinworldapi.checkblocktag:
+    default: op
+    description: /checkblocktag
+  piglinworldapi.addblocktag:
+    default: op
+    description: /addblocktag
+  piglinworldapi.removeblocktag:
+    default: op
+    description: /removeblocktag
