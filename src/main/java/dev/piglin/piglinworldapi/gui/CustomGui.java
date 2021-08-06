@@ -85,7 +85,7 @@ public abstract class CustomGui {
         } else return true;
     }
 
-    public sealed interface ClickResult permits ClickResultNone, ClickResultAnotherGui {
+    public interface ClickResult {
     }
 
     /**
