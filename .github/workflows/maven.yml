@@ -19,6 +19,12 @@ jobs:
       with:
         java-version: '16'
         distribution: 'adopt'
+    - name: Cache Maven packages
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
     - name: Build with Maven
       run: mvn -B package --file pom.xml
   publish-snapshot:
@@ -31,7 +37,12 @@ jobs:
       with:
         java-version: '16'
         distribution: 'adopt'
-    - name: Publish SNAPSHOT version to GitHub Packages
+        server-id: ossrh
+        server-username: ${{ secrets.OSSRH_USERNAME }}
+        server-password: ${{ secrets.OSSRH_PASSWORD }}
+        gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+        gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
+    - name: Publish SNAPSHOT version to Sonatype OSS Repository
       run: mvn -B --no-transfer-progress deploy -DskipTests
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        MAVEN_OPTS: "--add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED"
