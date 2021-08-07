@@ -5,6 +5,7 @@ import dev.piglin.piglinworldapi.block.BlockDataStorage;
 import dev.piglin.piglinworldapi.block.RedstoneListener;
 import dev.piglin.piglinworldapi.gui.GuiController;
 import dev.piglin.piglinworldapi.recipe.RecipeController;
+import dev.piglin.piglinworldapi.util.TeleportUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -37,6 +38,7 @@ public final class PiglinWorldAPI extends JavaPlugin {
         getServer().getPluginManager().registerEvents(recipeController, this);
         getServer().getPluginManager().registerEvents(guiController, this);
         getServer().getPluginManager().registerEvents(new RedstoneListener(), this);
+        getServer().getPluginManager().registerEvents(new TeleportUtils(), this);
         if (getServer().getWorlds().stream().anyMatch(world -> world.getLoadedChunks().length != 0)) {
             System.out.println("Searching for PiglinAPI blocks... It may take some time.");
             for (var world : getServer().getWorlds()) {
