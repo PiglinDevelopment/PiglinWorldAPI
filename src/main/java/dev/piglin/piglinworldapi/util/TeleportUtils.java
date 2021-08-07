@@ -38,6 +38,7 @@ public class TeleportUtils implements Listener {
             }
         }
         timedTeleports.put(record.player(), record);
+        Bukkit.getScheduler().runTask(PiglinWorldAPI.getInstance(), TeleportUtils::checkTeleports);
         return true;
     }
 
@@ -94,6 +95,7 @@ public class TeleportUtils implements Listener {
         public static final Consumer<TimedTeleportRecord<Object>> NOOP = o -> {
 
         };
+
         public TimedTeleportRecord(@NotNull Player player, @NotNull Location destination,
                                    @NotNull Consumer<TimedTeleportRecord<Object>> onCancel,
                                    @NotNull Function<TimedTeleportRecord<Object>, Boolean> onTeleport,
