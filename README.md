@@ -18,6 +18,21 @@ It makes it possible to create your own blocks, provides a higher-level Inventor
     <scope>provided</scope>
 </dependency>
 ```
+If you want to use snapshots (versions ending with -SNAPSHOT which are updated on every commit),
+run maven with `-U` (--update-snapshots) and add a snapshot repository:
+```xml
+<repository>
+    <id>snapshots-repo</id>
+    <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+    <releases>
+        <enabled>false</enabled>
+    </releases>
+    <snapshots>
+        <enabled>true</enabled>
+    </snapshots>
+</repository>
+```
+And be ready to see your code doesn't compile tomorrow because PiglinWorldAPI will have breaking changes (at least until it's 1.0.0)
 #### Gradle:
 ```groovy
 repositories {
