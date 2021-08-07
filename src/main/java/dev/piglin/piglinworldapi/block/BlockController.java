@@ -130,19 +130,21 @@ public class BlockController implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onBlockDrop(BlockDropItemEvent event) {
-        event.setCancelled(true);
-        if (event.getPlayer().getGameMode() != GameMode.CREATIVE) {
-            var item = new ItemStack(event.getBlockState().getType());
-            var meta = item.getItemMeta();
-            assert meta != null;
-            if (PiglinWorldAPI.getInstance().getBlockDataStorage().data.containsKey(event.getBlock())) {
-                meta.getPersistentDataContainer().set(tagsKey, PersistentDataType.STRING, String.join("\u001E", PiglinWorldAPI.getInstance().getBlockDataStorage().data.get(event.getBlock())));
+        if(Mushroom.MushroomType.isMushroom(event.getBlockState().getType()) || PiglinWorldAPI.getInstance().getBlockDataStorage().data.containsKey(event.getBlock())) {
+            event.setCancelled(true);
+            if (event.getPlayer().getGameMode() != GameMode.CREATIVE) {
+                var item = new ItemStack(event.getBlockState().getType());
+                var meta = item.getItemMeta();
+                assert meta != null;
+                if (PiglinWorldAPI.getInstance().getBlockDataStorage().data.containsKey(event.getBlock())) {
+                    meta.getPersistentDataContainer().set(tagsKey, PersistentDataType.STRING, String.join("\u001E", PiglinWorldAPI.getInstance().getBlockDataStorage().data.get(event.getBlock())));
+                }
+                if (Mushroom.MushroomType.isMushroom(event.getBlockState().getType())) {
+                    meta.setCustomModelData(getMushroom(event.getBlockState()).customModelData());
+                }
+                item.setItemMeta(meta);
+                event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), item);
             }
-            if (Mushroom.MushroomType.isMushroom(event.getBlockState().getType())) {
-                meta.setCustomModelData(getMushroom(event.getBlockState()).customModelData());
-            }
-            item.setItemMeta(meta);
-            event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), item);
         }
 
         PiglinWorldAPI.getInstance().getBlockDataStorage().data.remove(event.getBlock());
