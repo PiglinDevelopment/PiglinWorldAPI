@@ -1,1 +1,7 @@
-teleport delay: 10 # в секундах
+teleport:
+  delay: 3
+  message: "Вы телепортируетесь. Не двигайтесь {s} с."
+  title format: "Не двигайтесь"
+  subtitle format: "Подождите {left} с."
+  cancelled message: "Телепортация отменена"
+  teleported message: "Вы телепортировались"

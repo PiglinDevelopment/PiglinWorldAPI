@@ -20,7 +20,7 @@ public class TeleportUtils implements Listener {
     private static final Map<Player, TimedTeleportRecord<?>> timedTeleports = new HashMap<>();
 
     static {
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(PiglinWorldAPI.getInstance(), TeleportUtils::checkTeleports, 1, 5);
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(PiglinWorldAPI.getInstance(), TeleportUtils::checkTeleports, 1, 10);
     }
 
     /**
@@ -37,6 +37,9 @@ public class TeleportUtils implements Listener {
                 return false;
             }
         }
+        var teleportMessage = PiglinWorldAPI.getInstance().getConfiguration().teleportMessage();
+        if (teleportMessage != null)
+            record.player().sendMessage(StringUtils.replace(teleportMessage, record.player(), "s", String.valueOf(Math.max(0, (record.time - System.currentTimeMillis()) / 1000))));
         timedTeleports.put(record.player(), record);
         Bukkit.getScheduler().runTask(PiglinWorldAPI.getInstance(), TeleportUtils::checkTeleports);
         return true;
@@ -51,6 +54,12 @@ public class TeleportUtils implements Listener {
                 if (timedTeleportRecord.onTeleport().apply((TimedTeleportRecord<Object>) timedTeleportRecord)) {
                     player.teleport(timedTeleportRecord.destination());
                 }
+            } else {
+                player.sendTitle(
+                        StringUtils.replace(PiglinWorldAPI.getInstance().getConfiguration().teleportTitleFormat(), player, "left", String.valueOf(Math.max(0, (timedTeleportRecord.time - System.currentTimeMillis()) / 1000))),
+                        StringUtils.replace(PiglinWorldAPI.getInstance().getConfiguration().teleportSubtitleFormat(), player, "left", String.valueOf(Math.max(0, (timedTeleportRecord.time - System.currentTimeMillis()) / 1000))),
+                        3, 10, 5
+                );
             }
         });
         toRemove.forEach(timedTeleports::remove);
@@ -89,18 +98,36 @@ public class TeleportUtils implements Listener {
          * Always teleport player (for onTeleport)
          */
         public static final Function<TimedTeleportRecord<Object>, Boolean> ALWAYS_TELEPORT = o -> true;
+
+        /**
+         * Send teleport message (for onTeleport)
+         */
+        public static final Function<TimedTeleportRecord<Object>, Boolean> TELEPORT_SEND_MESSAGE = o -> {
+            var cancelMessage = PiglinWorldAPI.getInstance().getConfiguration().teleportTeleportedMessage();
+            if (cancelMessage != null) o.player().sendMessage(StringUtils.replace(cancelMessage, o.player(), "left", String.valueOf(Math.max(0, (o.time - System.currentTimeMillis()) / 1000))));;
+            return true;
+        };
+        
         /**
          * Do nothing when cancelled (for onCancel)
          */
         public static final Consumer<TimedTeleportRecord<Object>> NOOP = o -> {
 
         };
+        
+        /**
+         * Send cancel message (for onCancel)
+         */
+        public static final Consumer<TimedTeleportRecord<Object>> CANCEL_SEND_MESSAGE = o -> {
+            var cancelMessage = PiglinWorldAPI.getInstance().getConfiguration().teleportCancelledMessage();
+            if (cancelMessage != null) o.player().sendMessage(StringUtils.replace(cancelMessage, o.player(), "left", String.valueOf(Math.max(0, (o.time - System.currentTimeMillis()) / 1000))));;
+        };
 
         public TimedTeleportRecord(@NotNull Player player, @NotNull Location destination,
                                    @NotNull Consumer<TimedTeleportRecord<Object>> onCancel,
                                    @NotNull Function<TimedTeleportRecord<Object>, Boolean> onTeleport,
                                    @Nullable M meta) {
-            this(player, destination, System.currentTimeMillis() + 1000 * PiglinWorldAPI.getInstance().getTeleportDelay(), onCancel, onTeleport, meta);
+            this(player, destination, System.currentTimeMillis() + 1000L * PiglinWorldAPI.getInstance().getConfiguration().teleportDelay(), onCancel, onTeleport, meta);
         }
     }
 }

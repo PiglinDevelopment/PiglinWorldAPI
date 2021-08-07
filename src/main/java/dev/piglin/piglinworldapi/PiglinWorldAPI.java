@@ -18,6 +18,7 @@ public final class PiglinWorldAPI extends JavaPlugin {
     private BlockController blockController;
     private RecipeController recipeController;
     private GuiController guiController;
+    private ServerConfiguration configuration;
 
     public static PiglinWorldAPI getInstance() {
         return getPlugin(PiglinWorldAPI.class);
@@ -26,6 +27,7 @@ public final class PiglinWorldAPI extends JavaPlugin {
     @Override
     public void onEnable() {
         saveDefaultConfig();
+        configuration = new ServerConfiguration(getConfig());
         setupFileStorage();
         blockDataStorage = new BlockDataStorage(blockDataStorageFile);
         blockController = new BlockController();
@@ -84,11 +86,11 @@ public final class PiglinWorldAPI extends JavaPlugin {
     }
 
     /**
-     * Get the teleport delay in seconds
-     * @return the teleport delay in seconds
+     * Get the server configuration
+     * @return server configuration
      */
-    public long getTeleportDelay() {
-        return getConfig().getLong("teleport delay");
+    public ServerConfiguration getConfiguration() {
+        return configuration;
     }
 
     @Override
