@@ -1,7 +1,7 @@
 name: PiglinWorldAPI
 version: ${project.version}
 main: dev.piglin.piglinworldapi.PiglinWorldAPI
-api-version: 1.17
+api-version: 1.16
 authors: [ Iaiao ]
 softdepend:
   - PlaceholderAPI
