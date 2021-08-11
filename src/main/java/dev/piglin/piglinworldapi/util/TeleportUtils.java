@@ -58,7 +58,7 @@ public class TeleportUtils implements Listener {
                 player.sendTitle(
                         StringUtils.replace(PiglinWorldAPI.getInstance().getConfiguration().teleportTitleFormat(), player, "left", String.valueOf(Math.max(0, (timedTeleportRecord.time - System.currentTimeMillis()) / 1000))),
                         StringUtils.replace(PiglinWorldAPI.getInstance().getConfiguration().teleportSubtitleFormat(), player, "left", String.valueOf(Math.max(0, (timedTeleportRecord.time - System.currentTimeMillis()) / 1000))),
-                        3, 10, 5
+                        0, 10, 5
                 );
             }
         });
