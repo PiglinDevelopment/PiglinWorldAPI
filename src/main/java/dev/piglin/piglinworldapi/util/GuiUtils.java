@@ -53,7 +53,7 @@ public class GuiUtils {
      * </pre>
      *
      * @param section      The section
-     * @param replacements Replacements ({@link StringUtils#replace(String, HashMap, OfflinePlayer)})
+     * @param replacements Replacements ({@link StringUtils#replace(String, Map, OfflinePlayer)})
      * @param player       The player
      * @return The ItemStack
      */
@@ -78,7 +78,7 @@ public class GuiUtils {
      *                                                             lore: [ "Array of lines with %placeholders% and {replacements}" ]
      *                                                             custom model data: 42
      *                                                             </pre>
-     * @param replacements Replacements ({@link StringUtils#replace(String, HashMap, OfflinePlayer)})
+     * @param replacements Replacements ({@link StringUtils#replace(String, Map, OfflinePlayer)})
      * @param player       The player
      * @return The ItemStack with replaced data
      */
@@ -101,7 +101,7 @@ public class GuiUtils {
     }
 
     /**
-     * Replaces Material.AIR with your plugin's barrier (which is AIR by default, see {@link GuiUtils#loadBarrier(Plugin)})
+     * Replaces Material.AIR with your plugin's barrier (which is AIR by default, see {@link #loadBarrier(Plugin)})
      *
      * @param plugin    Your plugin
      * @param inventory The inventory
@@ -124,7 +124,7 @@ public class GuiUtils {
     }
 
     /**
-     * Tries to get your plugin's barrier item. Loads the item if not found ({@link GuiUtils#loadBarrier(Plugin)})
+     * Tries to get your plugin's barrier item. Loads the item if not found ({@link #loadBarrier(Plugin)})
      *
      * @param plugin Your plugin
      * @return The barrier item

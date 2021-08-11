@@ -75,8 +75,8 @@ public class StringUtils {
      * Replaces {text}(hover text) or {text}(hover text)[CLICK_ACTION|click data] with text components
      *
      * @param s            raw string
-     * @param replacements see {@link StringUtils#replace(String, Map, OfflinePlayer)}
-     * @param player       see {@link StringUtils#replace(String, Map, OfflinePlayer)}
+     * @param replacements see {@link #replace(String, Map, OfflinePlayer)}
+     * @param player       see {@link #replace(String, Map, OfflinePlayer)}
      * @return parsed TextComponent
      */
     public static TextComponent parseAndReplace(String s, @Nullable Map<String, String> replacements, @Nullable OfflinePlayer player) {
@@ -87,8 +87,8 @@ public class StringUtils {
      * Replaces {text}(hover text) or {text}(hover text)[CLICK_ACTION|click data] with text components
      *
      * @param s            raw string
-     * @param player       see {@link StringUtils#replace(String, OfflinePlayer, String...)}
-     * @param replacements see {@link StringUtils#replace(String, OfflinePlayer, String...)}
+     * @param player       see {@link #replace(String, OfflinePlayer, String...)}
+     * @param replacements see {@link #replace(String, OfflinePlayer, String...)}
      * @return parsed TextComponent
      */
     public static TextComponent parseAndReplace(String s, @Nullable OfflinePlayer player, String... replacements) {
