@@ -112,7 +112,7 @@ public class StringUtils {
             var textComponent = new TextComponent(TextComponent.fromLegacyText(replace.apply(text)));
             mainComponent.addExtra(textComponent);
             s = s.substring(text.length() + match.length());
-            var component = new TextComponent(replace.apply(matcher.group(1)));
+            var component = new TextComponent(TextComponent.fromLegacyText(replace.apply(matcher.group(1))));
             if (matcher.group(2) != null && !matcher.group(2).isEmpty()) {
                 component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(replace.apply(matcher.group(2)))));
             }
