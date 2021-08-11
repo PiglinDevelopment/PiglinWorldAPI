@@ -42,14 +42,14 @@ public final class PiglinWorldAPI extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new RedstoneListener(), this);
         getServer().getPluginManager().registerEvents(new TeleportUtils(), this);
         if (getServer().getWorlds().stream().anyMatch(world -> world.getLoadedChunks().length != 0)) {
-            System.out.println("Searching for PiglinAPI blocks... It may take some time.");
+            getLogger().info("Searching for PiglinAPI blocks... It may take some time.");
             for (var world : getServer().getWorlds()) {
                 for (var chunk : world.getLoadedChunks()) {
                     blockController.loadChunk(chunk.getChunkSnapshot(), world.getMinHeight(), world.getMaxHeight());
                 }
             }
             var blocks = BlockController.getAllBlocks();
-            System.out.println("Loaded " + blocks.size() + " different blocks (" + blocks.values().stream().map(Collection::size).reduce(Integer::sum).orElse(0) + " blocks)");
+            getLogger().info("Loaded " + blocks.size() + " different blocks (" + blocks.values().stream().map(Collection::size).reduce(Integer::sum).orElse(0) + " blocks)");
         }
     }
 
