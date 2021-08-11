@@ -109,7 +109,7 @@ public class StringUtils {
         while (matcher.find()) {
             var match = matcher.group();
             var text = s.split(Pattern.quote(match))[0];
-            var textComponent = new TextComponent(replace.apply(text));
+            var textComponent = new TextComponent(TextComponent.fromLegacyText(replace.apply(text)));
             mainComponent.addExtra(textComponent);
             s = s.substring(text.length() + match.length());
             var component = new TextComponent(replace.apply(matcher.group(1)));
@@ -121,7 +121,7 @@ public class StringUtils {
             }
             mainComponent.addExtra(component);
         }
-        mainComponent.addExtra(new TextComponent(s));
+        mainComponent.addExtra(new TextComponent(TextComponent.fromLegacyText(s)));
         return mainComponent;
     }
 }
