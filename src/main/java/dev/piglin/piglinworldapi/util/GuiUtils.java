@@ -73,11 +73,11 @@ public class GuiUtils {
      * @param base         The base ItemStack to replace
      * @param section      replacements
      *                     If the section contains any of these fields, they replace default fields in base
-     *                     <pre>
-     *                                                             name: "Item name with %placeholders% and {replacements}"
-     *                                                             lore: [ "Array of lines with %placeholders% and {replacements}" ]
-     *                                                             custom model data: 42
-     *                                                             </pre>
+     * <pre>{@code
+     * name: "Item name with %placeholders% and {replacements}"
+     * lore: [ "Array of lines with %placeholders% and {replacements}" ]
+     * custom model data: 42
+     * }</pre>
      * @param replacements Replacements ({@link StringUtils#replace(String, Map, OfflinePlayer)})
      * @param player       The player
      * @return The ItemStack with replaced data
