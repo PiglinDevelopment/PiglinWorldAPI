@@ -121,7 +121,7 @@ public class StringUtils {
             }
             mainComponent.addExtra(component);
         }
-        mainComponent.addExtra(new TextComponent(TextComponent.fromLegacyText(s)));
+        mainComponent.addExtra(new TextComponent(TextComponent.fromLegacyText(replace.apply(s))));
         return mainComponent;
     }
 }
