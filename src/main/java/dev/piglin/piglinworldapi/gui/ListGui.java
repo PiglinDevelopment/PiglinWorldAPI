@@ -9,8 +9,10 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -74,7 +76,7 @@ public abstract class ListGui<T> extends CustomGui {
     }
 
     @Override
-    public ClickResult onItemClick(InventoryClickEvent event) {
+    public ClickResult onItemClick(@NotNull InventoryClickEvent event) {
         event.setCancelled(true);
         var pageChange = 0;
         if (listSlots.contains(event.getSlot()) && listSlots.indexOf(event.getSlot()) < lists.get(event.getInventory()).size()) {
@@ -121,18 +123,18 @@ public abstract class ListGui<T> extends CustomGui {
     }
 
     @Override
-    public ClickResult onItemClickInInventory(InventoryClickEvent event) {
+    public ClickResult onItemClickInInventory(@NotNull InventoryClickEvent event) {
         event.setCancelled(true);
         return new ClickResultNone();
     }
 
     @Override
-    public void onItemDrag(InventoryDragEvent event) {
+    public void onItemDrag(@NotNull InventoryDragEvent event) {
         event.setCancelled(true);
     }
 
     @Override
-    public Inventory open(Player player) {
+    public InventoryView onOpen(@NotNull Player player) {
         var inventory = Bukkit.createInventory(null, rows * 9, name);
         var items = getItems(player);
         var page = 0;
@@ -160,12 +162,11 @@ public abstract class ListGui<T> extends CustomGui {
         inventory.setItem(prevSlot, next);
         inventory.setItem(nextSlot, prev);
         GuiUtils.fillWithBarriers(plugin, inventory);
-        player.openInventory(inventory);
-        return inventory;
+        return player.openInventory(inventory);
     }
 
     @Override
-    public void onClose(InventoryCloseEvent event) {
+    public void onClose(@NotNull InventoryCloseEvent event) {
         lists.remove(event.getInventory());
         pages.remove(event.getInventory());
     }

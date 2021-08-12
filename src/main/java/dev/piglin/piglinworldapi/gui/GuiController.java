@@ -30,7 +30,9 @@ public class GuiController implements Listener {
      * @param player The player
      */
     public void open(CustomGui gui, Player player) {
-        openedGuis.put(gui.open(player), gui);
+        var view = gui.onOpen(player);
+        gui.inventory = view;
+        openedGuis.put(view.getTopInventory(), gui);
     }
 
     /**
@@ -48,17 +50,15 @@ public class GuiController implements Listener {
         if (event.getView().getTopInventory().equals(event.getClickedInventory())
                 && openedGuis.containsKey(event.getView().getTopInventory())) {
             if (openedGuis.get(event.getClickedInventory()).checkSlot(event.getSlot(), event)) {
-                var result = openedGuis.get(event.getClickedInventory()).onItemClick(event);
+                var result = openedGuis.get(event.getClickedInventory()).onClick(event);
                 if (result instanceof CustomGui.ClickResultAnotherGui gui) {
-                    var inventory = gui.gui().open((Player) event.getWhoClicked());
-                    openedGuis.put(inventory, gui.gui());
+                    open(gui.gui(), (Player) event.getWhoClicked());
                 }
             }
         } else if (openedGuis.containsKey(event.getView().getTopInventory())) {
-            var result = openedGuis.get(event.getView().getTopInventory()).onItemClickInInventory(event);
+            var result = openedGuis.get(event.getView().getTopInventory()).onClickInInventory(event);
             if (result instanceof CustomGui.ClickResultAnotherGui gui) {
-                var inventory = gui.gui().open((Player) event.getWhoClicked());
-                openedGuis.put(inventory, gui.gui());
+                open(gui.gui(), (Player) event.getWhoClicked());
             }
         }
     }
@@ -66,6 +66,7 @@ public class GuiController implements Listener {
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent event) {
         if (openedGuis.containsKey(event.getInventory())) {
+            openedGuis.get(event.getInventory()).getWidgets().forEach(w -> w.onClose(event));
             openedGuis.get(event.getInventory()).onClose(event);
             openedGuis.remove(event.getInventory());
         }
@@ -74,8 +75,8 @@ public class GuiController implements Listener {
     @EventHandler
     public void onInventoryDrag(InventoryDragEvent event) {
         if (openedGuis.containsKey(event.getInventory())) {
-            if (event.getRawSlots().stream().allMatch(slot -> slot > 53 || openedGuis.get(event.getInventory()).checkSlot(slot, event))) {
-                openedGuis.get(event.getInventory()).onItemDrag(event);
+            if (event.getRawSlots().stream().allMatch(slot -> slot >= event.getInventory().getSize() || openedGuis.get(event.getInventory()).checkSlot(slot, event))) {
+                openedGuis.get(event.getInventory()).onDrag(event);
             }
         }
     }
