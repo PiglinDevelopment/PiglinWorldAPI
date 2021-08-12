@@ -1,7 +1,8 @@
-package dev.piglin.piglinworldapi.block;
+package dev.piglin.piglinworldapi;
 
 import com.google.common.collect.ImmutableMap;
-import dev.piglin.piglinworldapi.PiglinWorldAPI;
+import dev.piglin.piglinworldapi.block.CustomBlock;
+import dev.piglin.piglinworldapi.block.Mushroom;
 import dev.piglin.piglinworldapi.util.InventoryUtils;
 import dev.piglin.piglinworldapi.util.Triple;
 import org.bukkit.*;
@@ -26,13 +27,10 @@ import java.util.*;
 public class BlockController implements Listener {
     private static final HashMap<Class<? extends CustomBlock>, List<Block>> blocks = new HashMap<>();
     private final NamespacedKey tagsKey = new NamespacedKey(PiglinWorldAPI.getInstance(), "tags");
+    static LinkedList<CustomBlock> customBlocks = new LinkedList<>();
 
-    /**
-     * @deprecated Should be refactored to be private or package-private
-     */
-    @Deprecated
-    public BlockController() {
-
+    // package-private
+    BlockController() {
     }
 
     /**
@@ -40,7 +38,7 @@ public class BlockController implements Listener {
      */
     public static void registerBlock(CustomBlock block) {
         blocks.put(block.getClass(), new LinkedList<>());
-        CustomBlock.blocks.add(block);
+        customBlocks.add(block);
     }
 
     /**
@@ -102,7 +100,7 @@ public class BlockController implements Listener {
      * @return CustomBlock of this mushroom, or empty if it's not a registered mushroom
      */
     public Optional<? extends CustomBlock> getCustomBlock(Mushroom mushroom) {
-        return mushroom == null ? Optional.empty() : CustomBlock.blocks.stream().filter(block -> block.mushroom == mushroom).findAny();
+        return mushroom == null ? Optional.empty() : customBlocks.stream().filter(block -> block.mushroom == mushroom).findAny();
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)

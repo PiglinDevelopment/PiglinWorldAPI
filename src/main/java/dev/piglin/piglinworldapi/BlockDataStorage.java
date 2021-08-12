@@ -1,4 +1,4 @@
-package dev.piglin.piglinworldapi.block;
+package dev.piglin.piglinworldapi;
 
 import com.google.common.collect.Lists;
 import io.netty.buffer.Unpooled;
@@ -23,12 +23,7 @@ import java.util.List;
 public class BlockDataStorage implements TabExecutor {
     final HashMap<Block, List<String>> data = new HashMap<>();
 
-    /**
-     * @deprecated Should be refactored to be private or package-private
-     * @param storage The file to load data from
-     */
-    @Deprecated
-    public BlockDataStorage(File storage) {
+    BlockDataStorage(File storage) {
         try {
             var stream = new FileInputStream(storage);
             var buf = Unpooled.wrappedBuffer(stream.readAllBytes());

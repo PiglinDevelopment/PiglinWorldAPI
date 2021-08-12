@@ -1,5 +1,6 @@
-package dev.piglin.piglinworldapi.gui;
+package dev.piglin.piglinworldapi;
 
+import dev.piglin.piglinworldapi.gui.CustomGui;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,12 +16,8 @@ import java.util.HashMap;
 public class GuiController implements Listener {
     private final HashMap<Inventory, CustomGui> openedGuis = new HashMap<>();
 
-    /**
-     * @deprecated Should be refactored to be private or package-private
-     */
-    @Deprecated
-    public GuiController() {
-
+    // package-private
+    GuiController() {
     }
 
     /**

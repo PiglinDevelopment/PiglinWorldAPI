@@ -1,5 +1,6 @@
 package dev.piglin.piglinworldapi.block;
 
+import dev.piglin.piglinworldapi.BlockController;
 import dev.piglin.piglinworldapi.gui.CustomGui;
 import org.bukkit.block.Block;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -19,7 +20,6 @@ import java.util.Optional;
  * We'll take care of any mutations done to the mushroom block (or at least we try to do this)
  */
 public abstract class CustomBlock {
-    static LinkedList<CustomBlock> blocks = new LinkedList<>();
     public final Mushroom mushroom;
 
     /**

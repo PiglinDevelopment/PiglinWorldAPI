@@ -26,9 +26,9 @@ public abstract class CustomGui {
     private final List<GuiWidget> widgets;
 
     /**
-     *
+     * The opened inventory
      */
-    protected InventoryView inventory;
+    public InventoryView inventory;
 
     /**
      * @param allowedSlots See ${@link CustomGui#allowedSlots}
@@ -111,7 +111,7 @@ public abstract class CustomGui {
         } else return true;
     }
 
-    final ClickResult onClick(InventoryClickEvent event) {
+    public final ClickResult onClick(InventoryClickEvent event) {
         for (var widget : getWidgets()) {
             if (widget.isWidgetSlot(event.getSlot())) {
                 return widget.onItemClick(event);
@@ -120,7 +120,7 @@ public abstract class CustomGui {
         return onItemClick(event);
     }
 
-    final ClickResult onClickInInventory(InventoryClickEvent event) {
+    public final ClickResult onClickInInventory(InventoryClickEvent event) {
         for (var widget : getWidgets()) {
             if (widget.isWidgetSlot(event.getSlot())) {
                 widget.onItemClickInInventory(event);
@@ -129,7 +129,7 @@ public abstract class CustomGui {
         return onItemClickInInventory(event);
     }
 
-    final void onDrag(InventoryDragEvent event) {
+    public final void onDrag(InventoryDragEvent event) {
         for (var widget : getWidgets()) {
             if (event.getRawSlots().stream().allMatch(slot -> slot >= inventory.getTopInventory().getSize() || widget.isWidgetSlot(slot))) {
                 widget.onItemDrag(event);

@@ -1,5 +1,6 @@
-package dev.piglin.piglinworldapi.recipe;
+package dev.piglin.piglinworldapi;
 
+import dev.piglin.piglinworldapi.recipe.CustomRecipe;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -16,11 +17,8 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class RecipeController implements Listener {
-    /**
-     * @deprecated Should be refactored to be private or package-private
-     */
-    @Deprecated
-    public RecipeController() {
+    // package-private
+    RecipeController() {
     }
 
     /**
