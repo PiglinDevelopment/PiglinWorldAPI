@@ -108,10 +108,11 @@ public class StringUtils {
         var mainComponent = new TextComponent();
         while (matcher.find()) {
             var match = matcher.group();
-            var text = s.split(Pattern.quote(match))[0];
-            var textComponent = new TextComponent(TextComponent.fromLegacyText(replace.apply(text)));
+            var beforeAfter = s.split(Pattern.quote(match));
+            var textBefore = beforeAfter.length > 0 ? beforeAfter[0] : "";
+            var textComponent = new TextComponent(TextComponent.fromLegacyText(replace.apply(textBefore)));
             mainComponent.addExtra(textComponent);
-            s = s.substring(text.length() + match.length());
+            s = beforeAfter.length > 1 ? beforeAfter[1] : "";
             var component = new TextComponent(TextComponent.fromLegacyText(replace.apply(matcher.group(1))));
             if (matcher.group(2) != null && !matcher.group(2).isEmpty()) {
                 component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(replace.apply(matcher.group(2)))));
