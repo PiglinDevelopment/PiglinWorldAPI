@@ -18,7 +18,7 @@ import java.util.function.Function;
 import java.util.regex.Pattern;
 
 public class StringUtils {
-    private static final Pattern componentPattern = Pattern.compile("&i\\{([^}]*)}\\(([^)]*)\\)(?:\\[(OPEN_URL|OPEN_FILE|RUN_COMMAND|SUGGEST_COMMAND|CHANGE_PAGE|COPY_TO_CLIPBOARD)\\|([^{]*)])?");
+    private static final Pattern componentPattern = Pattern.compile("\u00A7i\\{([^}]*)}\\(([^)]*)\\)(?:\\[(OPEN_URL|OPEN_FILE|RUN_COMMAND|SUGGEST_COMMAND|CHANGE_PAGE|COPY_TO_CLIPBOARD)\\|([^{]*)])?");
 
     /**
      * Replaces the string with the specified replacements, PlaceholderAPI (if present) and colors including RGB and RGB gradients
