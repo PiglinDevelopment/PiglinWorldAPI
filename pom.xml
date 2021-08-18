@@ -6,7 +6,7 @@
 
     <groupId>dev.piglin</groupId>
     <artifactId>piglinworldapi</artifactId>
-    <version>0.3-SNAPSHOT</version>
+    <version>0.2.1</version>
     <packaging>jar</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
