@@ -330,11 +330,13 @@ public class BlockController implements Listener {
 
     @EventHandler
     public void onChunkLoad(ChunkLoadEvent event) {
+        if(!PiglinWorldAPI.getInstance().getConfiguration().detectCustomBlocks()) return;
         loadChunk(event.getChunk().getChunkSnapshot(), event.getWorld().getMinHeight(), event.getWorld().getMaxHeight());
     }
 
     @EventHandler
     public void onChunkUnload(ChunkUnloadEvent event) {
+        if(!PiglinWorldAPI.getInstance().getConfiguration().detectCustomBlocks()) return;
         unloadChunk(event.getChunk());
     }
 

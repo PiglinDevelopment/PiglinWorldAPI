@@ -5,3 +5,6 @@ teleport:
   subtitle format: "Подождите {left} с."
   cancelled message: "Телепортация отменена"
   teleported message: "Вы телепортировались"
+
+# Set it to false if you don't use custom blocks. This setting can improve server performance
+detect custom blocks: true

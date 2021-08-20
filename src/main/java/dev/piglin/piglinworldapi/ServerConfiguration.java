@@ -8,13 +8,15 @@ public record ServerConfiguration(int teleportDelay,
                                   @Nullable String teleportTitleFormat,
                                   @Nullable String teleportSubtitleFormat,
                                   @Nullable String teleportCancelledMessage,
-                                  @Nullable String teleportTeleportedMessage) {
+                                  @Nullable String teleportTeleportedMessage,
+                                  boolean detectCustomBlocks) {
     ServerConfiguration(ConfigurationSection section) {
         this(section.getInt("teleport.delay"),
                 section.getString("teleport.message"),
                 section.getString("teleport.title format"),
                 section.getString("teleport.subtitle format"),
                 section.getString("teleport.cancelled message"),
-                section.getString("teleport.teleported message"));
+                section.getString("teleport.teleported message"),
+                section.getBoolean("detect custom blocks"));
     }
 }

@@ -37,15 +37,19 @@ public final class PiglinWorldAPI extends JavaPlugin {
         getServer().getPluginManager().registerEvents(guiController, this);
         getServer().getPluginManager().registerEvents(new RedstoneListener(), this);
         getServer().getPluginManager().registerEvents(new TeleportUtils(), this);
-        if (getServer().getWorlds().stream().anyMatch(world -> world.getLoadedChunks().length != 0)) {
-            getLogger().info("Searching for PiglinAPI blocks... It may take some time.");
-            for (var world : getServer().getWorlds()) {
-                for (var chunk : world.getLoadedChunks()) {
-                    blockController.loadChunk(chunk.getChunkSnapshot(), world.getMinHeight(), world.getMaxHeight());
+        if(getConfiguration().detectCustomBlocks()) {
+            if (getServer().getWorlds().stream().anyMatch(world -> world.getLoadedChunks().length != 0)) {
+                getLogger().info("Searching for PiglinAPI blocks... It may take some time.");
+                for (var world : getServer().getWorlds()) {
+                    for (var chunk : world.getLoadedChunks()) {
+                        blockController.loadChunk(chunk.getChunkSnapshot(), world.getMinHeight(), world.getMaxHeight());
+                    }
                 }
+                var blocks = BlockController.getAllBlocks();
+                getLogger().info("Loaded " + blocks.size() + " different blocks (" + blocks.values().stream().map(Collection::size).reduce(Integer::sum).orElse(0) + " blocks)");
             }
-            var blocks = BlockController.getAllBlocks();
-            getLogger().info("Loaded " + blocks.size() + " different blocks (" + blocks.values().stream().map(Collection::size).reduce(Integer::sum).orElse(0) + " blocks)");
+        } else {
+            getLogger().info("Skipping custom blocks, disabled in config.yml");
         }
     }
 
