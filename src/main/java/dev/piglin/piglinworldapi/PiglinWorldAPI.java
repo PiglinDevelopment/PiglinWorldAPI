@@ -35,7 +35,8 @@ public final class PiglinWorldAPI extends JavaPlugin {
         getServer().getPluginManager().registerEvents(blockController, this);
         getServer().getPluginManager().registerEvents(recipeController, this);
         getServer().getPluginManager().registerEvents(guiController, this);
-        getServer().getPluginManager().registerEvents(new RedstoneListener(), this);
+        if(getConfiguration().redstoneEvent())
+            getServer().getPluginManager().registerEvents(new RedstoneListener(), this);
         getServer().getPluginManager().registerEvents(new TeleportUtils(), this);
         if(getConfiguration().detectCustomBlocks()) {
             if (getServer().getWorlds().stream().anyMatch(world -> world.getLoadedChunks().length != 0)) {

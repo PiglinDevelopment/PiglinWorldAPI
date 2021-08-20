@@ -9,7 +9,8 @@ public record ServerConfiguration(int teleportDelay,
                                   @Nullable String teleportSubtitleFormat,
                                   @Nullable String teleportCancelledMessage,
                                   @Nullable String teleportTeleportedMessage,
-                                  boolean detectCustomBlocks) {
+                                  boolean detectCustomBlocks,
+                                  boolean redstoneEvent) {
     ServerConfiguration(ConfigurationSection section) {
         this(section.getInt("teleport.delay"),
                 section.getString("teleport.message"),
@@ -17,6 +18,7 @@ public record ServerConfiguration(int teleportDelay,
                 section.getString("teleport.subtitle format"),
                 section.getString("teleport.cancelled message"),
                 section.getString("teleport.teleported message"),
-                section.getBoolean("detect custom blocks"));
+                section.getBoolean("detect custom blocks"),
+                section.getBoolean("redstone event"));
     }
 }

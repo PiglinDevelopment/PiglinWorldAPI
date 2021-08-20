@@ -8,3 +8,5 @@ teleport:
 
 # Set it to false if you don't use custom blocks. This setting can improve server performance
 detect custom blocks: true
+# Set it to false if you don't use plugins that use PiglinWorldAPI for redstone stuff (e.g. custom block that activates when powered)
+redstone event: true
